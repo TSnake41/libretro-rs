@@ -3,8 +3,8 @@ macro_rules! libretro_core {
     ($core:path) => {
         #[doc(hidden)]
         mod libretro_rs_instance {
-            use super::$core;
-            use libretro_rs::libc::*;
+            use core::ffi::{c_char, c_uint};
+            use libretro_rs::libc::size_t;
             use libretro_rs::*;
 
             static mut RETRO_INSTANCE: RetroInstance<$core> = RetroInstance {
