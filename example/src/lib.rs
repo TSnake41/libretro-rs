@@ -51,4 +51,4 @@ impl RetroCore for Emulator {
   }
 }
 
-libretro_core!(Emulator);
+libretro_core!(crate::Emulator);

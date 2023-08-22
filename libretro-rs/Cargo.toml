@@ -15,6 +15,7 @@ exclude = [
 
 [dependencies]
 libc = "0.2"
+libretro-rs-ffi = { path = "../libretro-rs-ffi" }
 
 [profile.dev]
 panic = "abort"
