@@ -117,7 +117,7 @@ macro_rules! libretro_core {
       }
 
       #[no_mangle]
-      extern "C" fn retro_load_game(game: &retro_game_info) -> bool {
+      extern "C" fn retro_load_game(game: Option<&retro_game_info>) -> bool {
         instance_mut(|instance| instance.on_load_game(game))
       }
 

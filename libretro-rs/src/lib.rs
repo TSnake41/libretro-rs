@@ -51,7 +51,7 @@ pub trait RetroCore {
 
   fn cheat_set(&mut self, env: &RetroEnvironment, index: u32, enabled: bool, code: *const libc::c_char) {}
 
-  fn load_game(&mut self, env: &RetroEnvironment, game: RetroGame) -> RetroLoadGameResult;
+  fn load_game(&mut self, env: &RetroEnvironment, game: Option<RetroGame>) -> RetroLoadGameResult;
 
   fn load_game_special(&mut self, env: &RetroEnvironment, game_type: u32, info: RetroGame, num_info: usize) -> bool {
     false
@@ -650,10 +650,10 @@ impl<T: RetroCore> RetroInstance<T> {
   }
 
   /// Invoked by a `libretro` frontend, with the `retro_load_game` API call.
-  pub fn on_load_game(&mut self, game: &retro_game_info) -> bool {
+  pub fn on_load_game(&mut self, game: Option<&retro_game_info>) -> bool {
     let env = self.environment();
 
-    match self.core_mut(|core| core.load_game(&env, game.into())) {
+    match self.core_mut(|core| core.load_game(&env, game.map(Into::into))) {
       RetroLoadGameResult::Failure => {
         self.system_av_info = None;
         false
